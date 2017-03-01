@@ -14,18 +14,20 @@ public class User {
 	
 	
 	
-	public User(String username, String password,String repeatPassword, String email, Store store) {
+	public User(String username, String password,String repeatPassword, String email, Store store) throws NullPointerException {
 		
+		this.store = store;
 		// call the method to check if the specified mail already exists:
+		
 		if (emailAlreadyTaken(email)) {
-			System.out.println("This e-mail is already in the database. Please try with a different e-mail. ");
+			
+			throw new NullPointerException();
 		}
 		else {
 			this.email = email;
 			this.username = username;
 			this.password = password;
 			this.email = email;
-			this.store = store;
 			this.id = idNumber;
 			idNumber++;
 		}
@@ -34,12 +36,14 @@ public class User {
 	// checks if an e-mail is already taken
 	private boolean emailAlreadyTaken (String mail) {
 		boolean isTaken = false;
-		for (User u : this.store.getUsers()) {
-			if (mail.equals(u.getEmail())) {
-				isTaken = true;
-				break;
+		if (!this.store.getUsers().isEmpty()) {
+			for (User u : this.store.getUsers()) {
+				if (mail.equals(u.getEmail())) {
+					isTaken = true;
+					break;
+				}
 			}
-		}
+		}	
 		return isTaken;		
 	}
 

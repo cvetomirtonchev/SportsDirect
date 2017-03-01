@@ -1,5 +1,6 @@
 package store;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.TreeSet;
 
@@ -9,13 +10,22 @@ public class Store {
 	
 	private String name = "Sports Direct";
 	private String address;
-	private TreeSet<User> users = new TreeSet<>(new CompareByID());
+	private TreeSet<User> users;
+		
+	public Store(String address) {
+		this.address = address;
+		this.users = new TreeSet<>(new CompareByID());
+	}
+
+	public Collection<User> getUsers() {
+		
+		return Collections.unmodifiableCollection(users);
+	}
 	
-	
-	
-	
-	public TreeSet<User> getUsers() {
-		return (TreeSet<User>) Collections.unmodifiableSet(this.users);
+	public void addUser (User u) {
+		if (u != null) {
+			users.add(u);
+		}
 	}
 
 }
