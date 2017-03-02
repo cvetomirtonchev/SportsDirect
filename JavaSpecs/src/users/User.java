@@ -4,7 +4,7 @@ import store.Store;
 
 public class User {
 	
-	private static int idNumber=0;
+	private static int idNumber = 0;
 	private String username;
 	private String password;
 	private String repeatPassword;
@@ -12,7 +12,9 @@ public class User {
 	private int id;
 	private Store store;
 	
+	// for validation
 	
+		
 	
 	public User(String username, String password,String repeatPassword, String email, Store store) throws NullPointerException {
 		
@@ -25,6 +27,8 @@ public class User {
 		}
 		else {
 			this.email = email;
+			
+			
 			this.username = username;
 			this.password = password;
 			this.email = email;
