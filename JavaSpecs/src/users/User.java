@@ -1,5 +1,8 @@
 package users;
 
+import java.util.ArrayList;
+
+import shops.Product;
 import store.Store;
 
 public class User {
@@ -27,6 +30,7 @@ public class User {
 	private String email;
 	private int id;
 	private Store store;
+	private ArrayList<Product> shoppingBag;
 	
 	// for validation
 	
@@ -64,8 +68,6 @@ public class User {
 								for (int k = 0; k < simbols.length; k++) {
 									if (passcode[j2].equals(simbols[k])) {
 										this.password = password;
-										
-
 									}
 
 								}
@@ -94,6 +96,7 @@ public class User {
 			this.email = email;
 			this.id = idNumber;
 			idNumber++;
+			this.shoppingBag = new ArrayList<>();
 		}
 	}
 	
@@ -110,6 +113,13 @@ public class User {
 		}	
 		return isTaken;		
 	}
+	
+	//TODO add to bag method
+	
+//	public void addToBag (Product product, String color, String size, int quantity) {
+//		Product prod = 
+//		
+//	}
 
 	public String getEmail() {
 		return email;

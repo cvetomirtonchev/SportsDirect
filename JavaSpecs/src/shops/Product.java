@@ -1,26 +1,53 @@
 package shops;
 
+import java.util.ArrayList;
+import java.util.TreeMap;
+
+import store.IStock;
+
 public abstract class Product {
 	public enum Brand {
 		NIKE,ADIDAS,PUMA,EVERLAST
 	}
+	
+	public enum Gender {
+		MEN, LADIES
+	}
+	
+	public enum ProductType {
+		FOOTWEAR, CLOTHING, ACCESSORIES
+	}
+	
 	private String name;
 	private Brand brand;
-	private boolean forMen;
+	private Gender gender; 
 	private double price;
-	private String size;
-	private int quantity;
 	private String productInfo;
+	private TreeMap<String, Integer> sizeQuantity; 
+	private ArrayList<String> colors;
+	protected ProductType productType;
+	protected IStock stock;
 	
-	public Product(String name, Brand brand, boolean forMen,double price, String size, int quantity, String productInfo) {
+	public Product(String name, Brand brand, Gender gender ,double price, String productInfo) {
 		
 		this.name = name;
 		this.brand = brand;
-		this.forMen = forMen;
-		this.size = size;
-		this.quantity = quantity;
+		this.gender = gender;
 		this.productInfo = productInfo;
 		this.price=price;
+		this.sizeQuantity = new TreeMap<>();
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public ProductType getProductType() {
+		return productType;
+	}
+
+	public IStock getStock() {
+		return stock;
 	}
 	
 	
