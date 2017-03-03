@@ -1,10 +1,13 @@
 package store;
 
 import users.User;
+import users.User.InvalidEmailException;
+import users.User.InvalidPasswordException;
+import users.User.InvalidUsernameException;
 
 public class Demo {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidEmailException, InvalidUsernameException, InvalidPasswordException {
 		
 		// testing new features
 		

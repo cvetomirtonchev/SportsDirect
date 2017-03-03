@@ -9,9 +9,9 @@ public class FootWear extends Product {
 	private ShoesType shoesType;
 	
 	
-	public FootWear(String name, Brand brand, boolean forMen, String size, int quantity, String productInfo,
+	public FootWear(String name, Brand brand, boolean forMen,double price ,String size, int quantity, String productInfo,
 			ShoesType shoesType) {
-		super(name, brand, forMen, size, quantity, productInfo);
+		super(name, brand, forMen,price, size, quantity, productInfo );
 		this.shoesType = shoesType;
 	}
 	

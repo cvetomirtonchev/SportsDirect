@@ -7,9 +7,9 @@ public class Clothing extends Product {
 	}
 	private ClothType clothType;
 	
-	public Clothing(String name, Brand brand, boolean forMen, String size, int quantity, String productInfo,
+	public Clothing(String name, Brand brand, boolean forMen,double price , String size, int quantity, String productInfo,
 			ClothType clothType) {
-		super(name, brand, forMen, size, quantity, productInfo);
+		super(name, brand, forMen,price, size, quantity, productInfo );
 		this.clothType = clothType;
 	}
 	
