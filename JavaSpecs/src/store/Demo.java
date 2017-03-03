@@ -62,6 +62,9 @@ public class Demo {
 		}
 		
 		store.printCatalog();
+		System.out.println("============================");
+		store.printFromPriceRange(10, 40);
+		
 
 	}
 

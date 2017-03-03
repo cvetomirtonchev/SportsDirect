@@ -8,6 +8,7 @@ import store.IStock;
 public abstract class Product implements Comparable<Product>{
 
 
+
 	public enum Brand {
 		NIKE,ADIDAS,PUMA,EVERLAST
 	}
@@ -51,9 +52,14 @@ public abstract class Product implements Comparable<Product>{
 	public IStock getStock() {
 		return stock;
 	}
+
+	public double getPrice() {
+		return price;
+	}
+	
 	@Override
 	public String toString() {
-		return "Product [name=" + name + ", brand=" + brand + ", price=" + price + "]";
+		return " "+ this.brand + " "+this.name + ", price:" + price  ;
 	}
 	
 	@Override
@@ -62,6 +68,7 @@ public abstract class Product implements Comparable<Product>{
 		return 1;
 	}
 	
+
 	
 	
 	

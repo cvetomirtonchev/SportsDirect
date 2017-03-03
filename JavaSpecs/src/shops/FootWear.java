@@ -9,6 +9,7 @@ public class FootWear extends Product {
 	RUNNIG,BOOTS,SANDALS,FLIPFLOPS,FOOTBALL
 
 	}
+	
 	private ShoesType shoesType;
 	
 	

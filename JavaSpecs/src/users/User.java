@@ -1,8 +1,13 @@
 package users;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 import shops.Product;
+import shops.Product.Gender;
+import shops.Product.ProductType;
+import store.IStock;
 import store.Store;
 
 public class User {
@@ -31,6 +36,8 @@ public class User {
 	private int id;
 	private Store store;
 	private ArrayList<Product> shoppingBag;
+	//for user menu 
+	private ArrayList<Product> boughtProducts;
 	
 	// for validation
 	
@@ -114,12 +121,18 @@ public class User {
 		return isTaken;		
 	}
 	
-	//TODO add to bag method
+	// VIJ STORE TAM TI E METODA
 	
-//	public void addToBag (Product product, String color, String size, int quantity) {
-//		Product prod = 
-//		
-//	}
+	public void addToBag (Product product, String color, String size, int quantity) {
+		this.shoppingBag.add(product);
+		
+	}
+	public void returnProduct(Product product){
+		//TODO da vrushta producta v kataloga i da go maha ot koshnicata 
+	}
+	public void purchaceAll(){
+		//TODO kupuva vsichko i dobavq v istoriqta za pokupki koqto shte ni e bought products
+	}
 
 	public String getEmail() {
 		return email;
