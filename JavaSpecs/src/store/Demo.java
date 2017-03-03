@@ -1,5 +1,6 @@
 package store;
 
+import shops.Product;
 import users.User;
 import users.User.InvalidEmailException;
 import users.User.InvalidPasswordException;
@@ -32,6 +33,8 @@ public class Demo {
 		}
 		
 		System.out.println(store.getUsers().size());
+		
+		
 	}
 
 }
