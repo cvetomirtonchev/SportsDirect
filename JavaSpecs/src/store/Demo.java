@@ -1,5 +1,16 @@
 package store;
 
+import java.util.Random;
+
+import shops.Accessories;
+import shops.Clothing;
+import shops.Clothing.ClothType;
+import shops.Accessories.AccessType;
+import shops.FootWear;
+import shops.Product;
+import shops.FootWear.ShoesType;
+import shops.Product.Brand;
+import shops.Product.Gender;
 import users.User;
 import users.User.InvalidEmailException;
 import users.User.InvalidPasswordException;
@@ -32,6 +43,21 @@ public class Demo {
 		}
 		
 		System.out.println(store.getUsers().size());
+		
+		
+		for (int i = 0; i < 50; i++) {
+			Random r = new Random();
+			int type = r.nextInt(3);
+			if (type == 0) {
+				store.addToCatalog(new FootWear("Air 2.0", Brand.ADIDAS, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "leather", ShoesType.values()[r.nextInt(ShoesType.values().length)]));
+			}
+			if (type == 1) {
+				store.addToCatalog(new Accessories("Milestone", Brand.PUMA, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "Cool", AccessType.values()[r.nextInt(AccessType.values().length)]));
+			}
+			if (type == 2) {
+				store.addToCatalog(new Clothing("Bluzka", Brand.EVERLAST, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "Pretty", ClothType.values()[r.nextInt(ClothType.values().length)]));
+			}
+		}
 	}
 
 }

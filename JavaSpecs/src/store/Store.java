@@ -22,16 +22,7 @@ public class Store {
 		this.address = address;
 		this.users = new TreeSet<>(new CompareByID());
 		this.catalog = new HashMap<>();
-		this.catalog.put(Gender.LADIES, new HashMap<>());
-		this.catalog.put(Gender.MEN, new HashMap<>());
-		this.catalog.get(Gender.LADIES).put(ProductType.ACCESSORIES, new HashMap<>());
-		this.catalog.get(Gender.LADIES).put(ProductType.FOOTWEAR, new HashMap<>());
-		this.catalog.get(Gender.LADIES).put(ProductType.CLOTHING, new HashMap<>());
-		this.catalog.get(Gender.MEN).put(ProductType.ACCESSORIES, new HashMap<>());
-		this.catalog.get(Gender.MEN).put(ProductType.FOOTWEAR, new HashMap<>());
-		this.catalog.get(Gender.MEN).put(ProductType.CLOTHING, new HashMap<>());
-		
-		
+			
 	}
 
 	public Collection<User> getUsers() {
