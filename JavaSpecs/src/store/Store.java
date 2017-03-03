@@ -3,6 +3,7 @@ package store;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.TreeSet;
 
 import shops.Accessories.AccessType;
@@ -22,7 +23,6 @@ public class Store {
 		this.address = address;
 		this.users = new TreeSet<>(new CompareByID());
 		this.catalog = new HashMap<>();
-			
 	}
 
 	public Collection<User> getUsers() {
@@ -53,6 +53,25 @@ public class Store {
 		}
 		
 		this.catalog.get(gen).get(type).get(stock).add(prod);
+	}
+	
+	public void printCatalog (){
+		System.out.println("==========WELCOME TO"+this.name+"===========");
+		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : catalog.entrySet()) {
+			System.out.println("     For: "+e.getKey());
+			for(Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1: e.getValue().entrySet()){
+				System.out.println( "             Type: " + e1.getKey());
+				for(Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()){
+					System.out.println("                      -----Sort: " + e2.getKey());
+					for (Product  prod : e2.getValue()) {
+						System.out.println(                                                             ":" + prod);
+						
+					}
+				}
+				
+			}
+			
+		}
 	}
 
 }

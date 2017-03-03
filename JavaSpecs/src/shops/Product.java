@@ -5,7 +5,9 @@ import java.util.TreeMap;
 
 import store.IStock;
 
-public abstract class Product {
+public abstract class Product implements Comparable<Product>{
+
+
 	public enum Brand {
 		NIKE,ADIDAS,PUMA,EVERLAST
 	}
@@ -48,6 +50,16 @@ public abstract class Product {
 
 	public IStock getStock() {
 		return stock;
+	}
+	@Override
+	public String toString() {
+		return "Product [name=" + name + ", brand=" + brand + ", price=" + price + "]";
+	}
+	
+	@Override
+	public int compareTo (Product p) {
+		
+		return 1;
 	}
 	
 	
