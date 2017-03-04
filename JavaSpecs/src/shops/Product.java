@@ -1,6 +1,10 @@
 package shops;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import store.IStock;
@@ -27,6 +31,7 @@ public abstract class Product implements Comparable<Product>{
 	private double price;
 	private String productInfo;
 	private TreeMap<String, Integer> sizeQuantity; 
+	private TreeMap<String, TreeMap<String, Integer>> colorSizeQuantity;
 	private ArrayList<String> colors;
 	protected ProductType productType;
 	protected IStock stock;
@@ -39,6 +44,7 @@ public abstract class Product implements Comparable<Product>{
 		this.productInfo = productInfo;
 		this.price=price;
 		this.sizeQuantity = new TreeMap<>();
+		this.colorSizeQuantity = new TreeMap<>();
 	}
 
 	public Gender getGender() {
@@ -57,6 +63,10 @@ public abstract class Product implements Comparable<Product>{
 		return price;
 	}
 	
+	public Map <String, TreeMap<String, Integer>> getColorSizeQuantity() {
+		return Collections.unmodifiableMap(colorSizeQuantity);
+	}
+
 	@Override
 	public String toString() {
 		return " "+ this.brand + " "+this.name + ", price:" + price  ;

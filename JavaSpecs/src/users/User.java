@@ -61,32 +61,34 @@ public class User {
 			throw new InvalidUsernameException("The username must be 4 or more symbols ");
 		}
 		// password must contain 1 big word,1 symbol and be over 6 sumbols
-		String[] passcode = password.split("");
-		String golemibukvi = "QWERTYUIOPASDFGHJKLZXCVN";
-		String[] bukvi = golemibukvi.split("");
-		String simvoli = "!@#$%^&*()_+{}:|<>?123456789";
-		String[] simbols = simvoli.split("");
-		if (!password.equals(" ")) {
-			if (password.length() > 5) {
-				for (int i = 0; i < passcode.length; i++) {
-					for (int j = 0; j < bukvi.length; j++) {
-						if (passcode[i].equals(bukvi[j])) {
-							for (int j2 = 0; j2 < passcode.length; j2++) {
-								for (int k = 0; k < simbols.length; k++) {
-									if (passcode[j2].equals(simbols[k])) {
-										this.password = password;
-									}
-
-								}
-
-							}
-						}
-
-					}
-
-				}
-
-			}
+//		String[] passcode = password.split("");
+//		String golemibukvi = "QWERTYUIOPASDFGHJKLZXCVN";
+//		String[] bukvi = golemibukvi.split("");
+//		String simvoli = "!@#$%^&*()_+{}:|<>?123456789";
+//		String[] simbols = simvoli.split("");
+		if (checkPass(password)) {
+			this.password = password;
+//		if (!password.equals(" ")) {
+//			if (password.length() > 5) {
+//				for (int i = 0; i < passcode.length; i++) {
+//					for (int j = 0; j < bukvi.length; j++) {
+//						if (passcode[i].equals(bukvi[j])) {
+//							for (int j2 = 0; j2 < passcode.length; j2++) {
+//								for (int k = 0; k < simbols.length; k++) {
+//									if (passcode[j2].equals(simbols[k])) {
+//										this.password = password;
+//									}
+//
+//								}
+//
+//							}
+//						}
+//
+//					}
+//
+//				}
+//
+//			}
 
 		} else {
 		
@@ -124,14 +126,45 @@ public class User {
 	// VIJ STORE TAM TI E METODA
 	
 	public void addToBag (Product product, String color, String size, int quantity) {
-		this.shoppingBag.add(product);
-		
+		if (this.store.checkAvailability(product, color, size, quantity)) {
+			this.shoppingBag.add(product);
+		}
 	}
+	
 	public void returnProduct(Product product){
 		//TODO da vrushta producta v kataloga i da go maha ot koshnicata 
+		if (this.shoppingBag.contains(product)) {
+			this.shoppingBag.remove(product);
+		}
 	}
 	public void purchaceAll(){
 		//TODO kupuva vsichko i dobavq v istoriqta za pokupki koqto shte ni e bought products
+	}
+	
+	//checks is pass is strong
+	
+	private boolean checkPass (String pass) {
+		boolean hasCapital = false;
+		boolean hasSmall = false;
+		boolean hasSymbol = false;
+		
+		for (int i = 0; i < pass.length(); i++) {
+			if (pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z') {
+				hasSmall = true;
+			}
+			if (pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z') {
+				hasCapital = true;
+			}
+			if (!(pass.charAt(i) >= 'a' && pass.charAt(i) <= 'z') && !(pass.charAt(i) >= 'A' && pass.charAt(i) <= 'Z')) {
+				hasSymbol = true;
+			}
+			
+		}
+		if (hasCapital && hasSmall && hasSymbol) {
+			return true;
+		}
+		return false;
+		
 	}
 
 	public String getEmail() {

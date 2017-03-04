@@ -105,7 +105,38 @@ public class Store {
 		}
 	}
 	
-	
+	public boolean checkAvailability (Product prod, String color, String size, int quantity) {
+		Gender gen = prod.getGender();
+		ProductType type = prod.getProductType();
+		IStock stock = prod.getStock();
+		
+		if (this.catalog.get(gen).get(type).get(stock).contains(prod)){
+			if (prod.getColorSizeQuantity().containsKey(color)) {
+				if (prod.getColorSizeQuantity().get(color).containsKey(size)) {
+					if (prod.getColorSizeQuantity().get(color).get(size) >= quantity) {
+						return true;
+					}
+					else {
+						System.out.println("Not enough quantity in the store!");
+						return false;
+					}
+				}
+				else{
+					System.out.println("No such size for this product!");
+					return false;
+				}
+			}
+			else {
+				System.out.println("No such color for this product!");
+				return false;
+			}
+		}
+		else {
+			System.out.println("No such product in the catalog!");
+			return false;
+		}
+		
+	}
 	
 	
 	// ne sum dobavil da proverqva cvetovete razmera i nalichnosta
@@ -129,5 +160,7 @@ public class Store {
 		}
 		
 	}
+	
+	
 	
 }
