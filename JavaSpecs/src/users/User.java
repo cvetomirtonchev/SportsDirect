@@ -98,6 +98,15 @@ public class User {
 		}
 	}
 
+	public void printUserBag() {
+		System.out.println(shoppingBag.size());
+		if (!shoppingBag.isEmpty()) {
+			for (Product prod : this.shoppingBag) {
+				prod.printProductInfo();
+			}
+		}
+	}
+
 	public void returnProduct(Product product) {
 		// TODO da vrushta producta v kataloga i da go maha ot koshnicata
 		if (this.shoppingBag.contains(product)) {

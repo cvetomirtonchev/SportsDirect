@@ -58,13 +58,14 @@ public class Demo {
 			}
 		}
 		
-		
-		store.printCatalog();
+		Product pro = new FootWear("Adidas", Brand.ADIDAS, Gender.MEN, 30.0, "asdasds", ShoesType.RUNNIG);
+		//store.printCatalog();
 		System.out.println("============================");
 		//store.printFromPriceRange(10, 40);
 		//store.printColor("Benben");
-		store.printSize("XL");
-		
+		//store.printSize("XL");
+		gosho.addToBag(pro, "Black", "41", 1);
+		gosho.printUserBag();
 	
 
 	}

@@ -105,5 +105,7 @@ public abstract class Product implements Comparable<Product> {
 
 		return 1;
 	}
+	
+	
 
 }
