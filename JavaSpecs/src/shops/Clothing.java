@@ -16,6 +16,9 @@ public class Clothing extends Product {
 		this.clothType = clothType;
 		this.productType = ProductType.CLOTHING;
 		this.stock = clothType;
+		String[] womanSize = {"S", "M", "L", "XS"};
+		String[] manSize = {"S", "M", "L", "XL"};
+		this.addSizeAndQuantity(manSize, womanSize);
 
 	}
 	

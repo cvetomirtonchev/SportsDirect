@@ -1,5 +1,9 @@
 package shops;
 
+import java.util.TreeMap;
+import java.util.Map.Entry;
+import java.util.Random;
+
 import shops.Product.Gender;
 import shops.Product.ProductType;
 import store.IStock;
@@ -15,5 +19,9 @@ public class Accessories extends Product {
 		this.accessType = accessType;
 		this.productType = ProductType.ACCESSORIES;
 		this.stock = acessType;
+		for (Entry<String, TreeMap<String, Integer>> e : this.colorSizeQuantity.entrySet()) {
+			e.getValue().put("Unique", new Random().nextInt(4)+1);
+		}
+		
 	}
 }

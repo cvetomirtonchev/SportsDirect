@@ -26,16 +26,13 @@ public class Demo {
 		
 		Store store = new Store("Sofia");
 		
-		System.out.println(store.getUsers().isEmpty());
+			
+		User gosho = new User("Georgi", "Baraban1", "Baraban1", "georgi@abv.bg", store);
+		store.addUser(gosho);
 		
-//		try {
-//		User gosho = new User("Georgi", "1234", "1234", "georgi@abv.bg", store);
-//		store.addUser(gosho);
-//		}
-//		catch (NullPointerException e) {
-//			System.out.println("This e-mail is already in the database. Please try with a different e-mail. ");
-//		}
 //		
+		
+		
 //		try{
 //			User pesho = new User("Petyr", "1234", "1234", "georgi@abv.bg", store);
 //			store.addUser(pesho);
@@ -61,10 +58,12 @@ public class Demo {
 			}
 		}
 		
+		
 		store.printCatalog();
 		System.out.println("============================");
 		store.printFromPriceRange(10, 40);
 		
+	
 
 	}
 

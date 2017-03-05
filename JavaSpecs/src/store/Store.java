@@ -3,6 +3,7 @@ package store;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeSet;
 
@@ -160,6 +161,12 @@ public class Store {
 		}
 		
 	}
+
+	public Map<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> getCatalog() {
+		
+		return Collections.unmodifiableMap(catalog);
+	}
+	
 	
 	
 	
