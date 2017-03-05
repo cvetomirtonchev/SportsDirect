@@ -91,6 +91,15 @@ public class User {
 	}
 
 	// VIJ STORE TAM TI E METODA
+	
+	public void printUserBag () {
+		System.out.println(shoppingBag.size());
+		if (!shoppingBag.isEmpty()) {
+			for (Product prod : this.shoppingBag) {
+				prod.printProductInfo();
+			}
+		}	
+	}
 
 	public void addToBag(Product product, String color, String size, int quantity) {
 		if (this.store.checkAvailability(product, color, size, quantity)) {
