@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
@@ -68,7 +69,7 @@ public class Store {
 					System.out.println("                      -----Sort: " + e2.getKey());
 					for (Product prod : e2.getValue()) {
 						System.out.println("                                       :" + prod);
-
+						prod.printProductInfo();
 					}
 				}
 
@@ -96,6 +97,7 @@ public class Store {
 					for (Product prod : e2.getValue()) {
 						if (prod.getPrice() >= startPrice && prod.getPrice() <= endPrice) {
 							System.out.println("                                       :" + prod);
+							prod.printProductInfo();
 						}
 
 					}
@@ -105,45 +107,96 @@ public class Store {
 
 		}
 	}
-	
-	public boolean checkAvailability (Product prod, String color, String size, int quantity) {
+
+	public void printColor(String color) {
+
+		System.out.println("==========WELCOME TO" + this.name + "===========");
+
+		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : catalog.entrySet()) {
+			System.out.println("     For: " + e.getKey());
+			for (Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1 : e.getValue().entrySet()) {
+				System.out.println("             Type: " + e1.getKey());
+				for (Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()) {
+					System.out.println("                      -----Sort: " + e2.getKey());
+					for (Product prod : e2.getValue()) {
+						if (prod.getColorSizeQuantity().containsKey(color)) {
+							System.out.println("Color : " + color);
+							for (Entry<String, Integer> e3 : prod.getColorSizeQuantity().get(color).entrySet()) {
+
+								System.out.println(prod + " " + e3.getKey());
+
+							}
+						}
+					}
+
+				}
+			}
+
+		}
+
+	}
+	public void printSize(String size) {
+
+		System.out.println("==========WELCOME TO" + this.name + "===========");
+
+		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : catalog.entrySet()) {
+			System.out.println("     For: " + e.getKey());
+			for (Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1 : e.getValue().entrySet()) {
+				System.out.println("             Type: " + e1.getKey());
+				for (Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()) {
+					System.out.println("                      -----Sort: " + e2.getKey());
+					for (Product prod : e2.getValue()) {
+						for(Entry<String,TreeMap<String, Integer>> e3 : prod.getColorSizeQuantity().entrySet()){
+							for(Entry<String,Integer> e4 : e3.getValue().entrySet()){
+								if(e4.getKey().equals(size)){
+									System.out.println(prod);
+								}
+							}
+						}
+							
+							
+					}
+
+				}
+			}
+
+		}
+
+	}
+
+	public boolean checkAvailability(Product prod, String color, String size, int quantity) {
 		Gender gen = prod.getGender();
 		ProductType type = prod.getProductType();
 		IStock stock = prod.getStock();
-		
-		if (this.catalog.get(gen).get(type).get(stock).contains(prod)){
+
+		if (this.catalog.get(gen).get(type).get(stock).contains(prod)) {
 			if (prod.getColorSizeQuantity().containsKey(color)) {
 				if (prod.getColorSizeQuantity().get(color).containsKey(size)) {
 					if (prod.getColorSizeQuantity().get(color).get(size) >= quantity) {
 						return true;
-					}
-					else {
+					} else {
 						System.out.println("Not enough quantity in the store!");
 						return false;
 					}
-				}
-				else{
+				} else {
 					System.out.println("No such size for this product!");
 					return false;
 				}
-			}
-			else {
+			} else {
 				System.out.println("No such color for this product!");
 				return false;
 			}
-		}
-		else {
+		} else {
 			System.out.println("No such product in the catalog!");
 			return false;
 		}
-		
+
 	}
-	
-	
+
 	// ne sum dobavil da proverqva cvetovete razmera i nalichnosta
-	//krasi kaza che za kolekciite ne trqbva da ima getters and setters 
-	//za tova reshih malko da te ulesnq
-	public void giveProduct(User user,Product product,String color,String size,int quantity){
+	// krasi kaza che za kolekciite ne trqbva da ima getters and setters
+	// za tova reshih malko da te ulesnq
+	public void giveProduct(User user, Product product, String color, String size, int quantity) {
 		Gender gen = product.getGender();
 		ProductType type = product.getProductType();
 		IStock stock = product.getStock();
@@ -151,23 +204,21 @@ public class Store {
 		if (this.catalog.containsKey(gen)) {
 			if (this.catalog.get(gen).containsKey(type)) {
 				if (this.catalog.get(gen).get(type).containsKey(stock)) {
-					if(this.catalog.get(gen).get(type).get(stock).contains(product)){
+					if (this.catalog.get(gen).get(type).get(stock).contains(product)) {
 						user.addToBag(product, color, size, quantity);
 						this.catalog.get(gen).get(type).get(stock).remove(product);
 					}
 				}
 			}
-		
+
 		}
-		
+
 	}
 
+	
 	public Map<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> getCatalog() {
-		
+
 		return Collections.unmodifiableMap(catalog);
 	}
-	
-	
-	
-	
+
 }
