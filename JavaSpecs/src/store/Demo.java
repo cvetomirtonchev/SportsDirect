@@ -1,14 +1,9 @@
 package store;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.TreeSet;
-import java.util.Map.Entry;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 import shops.Accessories;
 import shops.Clothing;
 import shops.Clothing.ClothType;
@@ -19,7 +14,6 @@ import shops.FootWear.ShoesType;
 import shops.Product.Brand;
 import shops.Product.Gender;
 import shops.Product.ProductType;
-import shops.Product;
 import users.User;
 import users.User.InvalidEmailException;
 import users.User.InvalidPasswordException;
