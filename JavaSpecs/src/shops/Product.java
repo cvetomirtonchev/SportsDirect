@@ -81,6 +81,10 @@ public abstract class Product implements Comparable<Product> {
 		return price;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public Map<String, TreeMap<String, Integer>> getColorSizeQuantity() {
 		return Collections.unmodifiableMap(colorSizeQuantity);
 	}

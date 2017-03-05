@@ -1,8 +1,10 @@
 package store;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -21,7 +23,7 @@ public class Store {
 	private String name = "Sports Direct";
 	private String address;
 	private TreeSet<User> users;
-	private HashMap<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> catalog;
+	private HashMap<Gender, HashMap<ProductType, HashMap<IStock, HashSet<Product>>>> catalog;
 
 	public Store(String address) {
 		this.address = address;
@@ -53,7 +55,7 @@ public class Store {
 			this.catalog.get(gen).put(type, new HashMap<>());
 		}
 		if (!this.catalog.get(gen).get(type).containsKey(stock)) {
-			this.catalog.get(gen).get(type).put(stock, new TreeSet<>());
+			this.catalog.get(gen).get(type).put(stock, new HashSet<>());
 		}
 
 		this.catalog.get(gen).get(type).get(stock).add(prod);
@@ -61,11 +63,11 @@ public class Store {
 
 	public void printCatalog() {
 		System.out.println("==========WELCOME TO" + this.name + "===========");
-		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : catalog.entrySet()) {
+		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, HashSet<Product>>>> e : catalog.entrySet()) {
 			System.out.println("     For: " + e.getKey());
-			for (Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1 : e.getValue().entrySet()) {
+			for (Entry<ProductType, HashMap<IStock, HashSet<Product>>> e1 : e.getValue().entrySet()) {
 				System.out.println("             Type: " + e1.getKey());
-				for (Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()) {
+				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
 					System.out.println("                      -----Sort: " + e2.getKey());
 					for (Product prod : e2.getValue()) {
 						System.out.println("                                       :" + prod);
@@ -77,8 +79,7 @@ public class Store {
 
 		}
 	}
-
-	// print form price range
+	
 	public void printFromPriceRange(int startPrice, int endPrice) {
 		if (startPrice > endPrice) {
 			int change = 0;
@@ -88,11 +89,11 @@ public class Store {
 		}
 		System.out.println("==========WELCOME TO" + this.name + "===========");
 
-		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : catalog.entrySet()) {
+		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, HashSet<Product>>>> e : catalog.entrySet()) {
 			System.out.println("     For: " + e.getKey());
-			for (Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1 : e.getValue().entrySet()) {
+			for (Entry<ProductType, HashMap<IStock, HashSet<Product>>> e1 : e.getValue().entrySet()) {
 				System.out.println("             Type: " + e1.getKey());
-				for (Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()) {
+				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
 					System.out.println("                      -----Sort: " + e2.getKey());
 					for (Product prod : e2.getValue()) {
 						if (prod.getPrice() >= startPrice && prod.getPrice() <= endPrice) {
@@ -112,11 +113,11 @@ public class Store {
 
 		System.out.println("==========WELCOME TO" + this.name + "===========");
 
-		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : catalog.entrySet()) {
+		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, HashSet<Product>>>> e : catalog.entrySet()) {
 			System.out.println("     For: " + e.getKey());
-			for (Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1 : e.getValue().entrySet()) {
+			for (Entry<ProductType, HashMap<IStock, HashSet<Product>>> e1 : e.getValue().entrySet()) {
 				System.out.println("             Type: " + e1.getKey());
-				for (Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()) {
+				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
 					System.out.println("                      -----Sort: " + e2.getKey());
 					for (Product prod : e2.getValue()) {
 						if (prod.getColorSizeQuantity().containsKey(color)) {
@@ -139,11 +140,11 @@ public class Store {
 
 		System.out.println("==========WELCOME TO" + this.name + "===========");
 
-		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : catalog.entrySet()) {
+		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, HashSet<Product>>>> e : catalog.entrySet()) {
 			System.out.println("     For: " + e.getKey());
-			for (Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1 : e.getValue().entrySet()) {
+			for (Entry<ProductType, HashMap<IStock, HashSet<Product>>> e1 : e.getValue().entrySet()) {
 				System.out.println("             Type: " + e1.getKey());
-				for (Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()) {
+				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
 					System.out.println("                      -----Sort: " + e2.getKey());
 					for (Product prod : e2.getValue()) {
 						for(Entry<String,TreeMap<String, Integer>> e3 : prod.getColorSizeQuantity().entrySet()){
@@ -169,8 +170,8 @@ public class Store {
 		Gender gen = prod.getGender();
 		ProductType type = prod.getProductType();
 		IStock stock = prod.getStock();
-
-		if (!this.catalog.get(gen).get(type).get(stock).contains(prod)) {
+		HashSet<Product> pr_set = this.catalog.get(gen).get(type).get(stock);
+		if (pr_set.contains(prod)) {
 			if (prod.getColorSizeQuantity().containsKey(color)) {
 				if (prod.getColorSizeQuantity().get(color).containsKey(size)) {
 					if (prod.getColorSizeQuantity().get(color).get(size) >= quantity) {
@@ -197,10 +198,18 @@ public class Store {
 		}
 
 	}
+	
+	public void removeFromCatalog (Product prod, String color, String size, int quantity) {
+		HashSet<Product> temp = this.catalog.get(prod.getGender()).get(prod.getProductType()).get(prod.getStock());
+		for (Product p : temp) {
+			if (p == prod) {
+				int newQuantity = p.getColorSizeQuantity().get(color).get(size) - quantity;
+				p.getColorSizeQuantity().get(color).put(size, newQuantity);
+				break;
+			}
+		}
+	}
 
-	// ne sum dobavil da proverqva cvetovete razmera i nalichnosta
-	// krasi kaza che za kolekciite ne trqbva da ima getters and setters
-	// za tova reshih malko da te ulesnq
 	public void giveProduct(User user, Product product, String color, String size, int quantity) {
 		Gender gen = product.getGender();
 		ProductType type = product.getProductType();
@@ -219,9 +228,8 @@ public class Store {
 		}
 
 	}
-
 	
-	public Map<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> getCatalog() {
+	public Map<Gender, HashMap<ProductType, HashMap<IStock, HashSet<Product>>>> getCatalog() {
 
 		return Collections.unmodifiableMap(catalog);
 	}

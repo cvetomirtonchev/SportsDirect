@@ -4,10 +4,11 @@ package store;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.TreeSet;
 import java.util.Map.Entry;
-
+import javax.swing.plaf.synth.SynthSeparatorUI;
 import shops.Accessories;
 import shops.Clothing;
 import shops.Clothing.ClothType;
@@ -51,22 +52,22 @@ public class Demo {
 		
 		ArrayList<Product> products = new ArrayList<>();
 
-//		for (int i = 0; i < 5; i++) {
-//			Random r = new Random();
-//			int type = r.nextInt(3);
-//			if (type == 0) {
-//				store.addToCatalog(new FootWear("Air 2.0", Brand.ADIDAS, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "leather", ShoesType.values()[r.nextInt(ShoesType.values().length)]));
-//			
-//			}
-//			if (type == 1) {
-//				store.addToCatalog(new Accessories("Milestone", Brand.PUMA, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "Cool", AccessType.values()[r.nextInt(AccessType.values().length)]));
-//			
-//			}
-//			if (type == 2) {
-//				store.addToCatalog(new Clothing("Bluzka", Brand.EVERLAST, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "Pretty", ClothType.values()[r.nextInt(ClothType.values().length)]));
-//			
-//			}
-//		}
+		for (int i = 0; i < 100; i++) {
+			Random r = new Random();
+			int type = r.nextInt(3);
+			if (type == 0) {
+				store.addToCatalog(new FootWear("Air 2.0", Brand.ADIDAS, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "leather", ShoesType.values()[r.nextInt(ShoesType.values().length)]));
+			
+			}
+			if (type == 1) {
+				store.addToCatalog(new Accessories("Milestone", Brand.PUMA, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "Cool", AccessType.values()[r.nextInt(AccessType.values().length)]));
+			
+			}
+			if (type == 2) {
+				store.addToCatalog(new Clothing("Bluzka", Brand.EVERLAST, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "Pretty", ClothType.values()[r.nextInt(ClothType.values().length)]));
+			
+			}
+		}
 //		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : store.getCatalog().entrySet()) {
 //			for (Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1 : e.getValue().entrySet()) {
 //				for (Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()) {
@@ -77,20 +78,26 @@ public class Demo {
 //			}
 //		}
 		Product pr = new FootWear("Adi", Brand.ADIDAS, Gender.LADIES, 30.5, "Leather", ShoesType.RUNNIG);
+		
 		store.addToCatalog(pr);
 		
-		System.out.println(store.catalog.get(pr.getGender()).get(pr.getProductType()).get(pr.getStock()).contains(pr));
 		
 		store.printCatalog();
 		System.out.println("============================");
 		//store.printFromPriceRange(10, 40);
-		//store.printColor("Benben");
+		//store.printColor("Black");
 		//store.printSize("XL");
 		
 		gosho.addToBag(pr, "Black", "38", 1);
+		HashSet<Product> temp = store.getCatalog().get(Gender.MEN).get(ProductType.FOOTWEAR).get(ShoesType.RUNNIG);
+		gosho.addToBag((Product)temp.toArray()[new Random().nextInt(temp.size())], "White", "40", 1);
 		gosho.printUserBag();
+		gosho.returnProduct(pr);
+		gosho.printUserBag();
+		gosho.purchaceAll();
+		gosho.printUserBag();
+		store.printCatalog();
 		
-	
 
 	}
 
