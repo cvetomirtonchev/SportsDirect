@@ -75,12 +75,19 @@ public class Demo {
 		
 		store.addToCatalog(pr);
 		
-		
+		Product pro = new FootWear("Adidas", Brand.ADIDAS, Gender.MEN, 30.0, "asdasds", ShoesType.RUNNIG);
+		//store.printCatalog();
+
 		store.printCatalog();
+
 		System.out.println("============================");
 		//store.printFromPriceRange(10, 40);
 		//store.printColor("Black");
 		//store.printSize("XL");
+
+		gosho.addToBag(pro, "Black", "41", 1);
+		gosho.printUserBag();
+
 		
 		gosho.addToBag(pr, "Black", "38", 1);
 		HashSet<Product> temp = store.getCatalog().get(Gender.MEN).get(ProductType.FOOTWEAR).get(ShoesType.RUNNIG);
@@ -91,7 +98,7 @@ public class Demo {
 		gosho.purchaceAll();
 		gosho.printUserBag();
 		store.printCatalog();
-		
+
 
 	}
 
