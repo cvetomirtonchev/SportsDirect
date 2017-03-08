@@ -147,7 +147,7 @@ public class Store {
 					System.out.println("                              With size : " + size);
 					for (Product prod : e2.getValue()) {
 						if (prod.getSize().equals(size)) {
-							System.out.println("prod");
+							System.out.println(prod);
 						}
 					}
 				}
