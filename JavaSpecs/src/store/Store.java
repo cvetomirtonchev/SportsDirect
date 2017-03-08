@@ -14,6 +14,7 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 
 import shops.Accessories.AccessType;
 import shops.Product;
+import shops.Product.Brand;
 import shops.Product.Gender;
 import shops.Product.ProductType;
 import users.User;
@@ -71,7 +72,7 @@ public class Store {
 					System.out.println("                      -----Sort: " + e2.getKey());
 					for (Product prod : e2.getValue()) {
 						System.out.println("                                       :" + prod);
-						prod.printProductInfo();
+						
 					}
 				}
 
@@ -98,7 +99,7 @@ public class Store {
 					for (Product prod : e2.getValue()) {
 						if (prod.getPrice() >= startPrice && prod.getPrice() <= endPrice) {
 							System.out.println("                                       :" + prod);
-							prod.printProductInfo();
+							
 						}
 
 					}
@@ -119,13 +120,11 @@ public class Store {
 				System.out.println("             Type: " + e1.getKey());
 				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
 					System.out.println("                      -----Sort: " + e2.getKey());
+					System.out.println("                                   Color: "+color);
 					for (Product prod : e2.getValue()) {
-						if (prod.getColorSizeQuantity().containsKey(color)) {
-							System.out.println("Color : " + color);
-							for (Entry<String, Integer> e3 : prod.getColorSizeQuantity().get(color).entrySet()) {
-
-								System.out.println(prod + " " + e3.getKey());
-
+						if (prod.getColor().equals(color)) {
+							System.out.println( prod);
+							
 							}
 						}
 					}
@@ -135,7 +134,7 @@ public class Store {
 
 		}
 
-	}
+	
 	public void printSize(String size) {
 
 		System.out.println("==========WELCOME TO" + this.name + "===========");
@@ -146,13 +145,11 @@ public class Store {
 				System.out.println("             Type: " + e1.getKey());
 				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
 					System.out.println("                      -----Sort: " + e2.getKey());
+					System.out.println("                              With size : " +size);
 					for (Product prod : e2.getValue()) {
-						for(Entry<String,TreeMap<String, Integer>> e3 : prod.getColorSizeQuantity().entrySet()){
-							for(Entry<String,Integer> e4 : e3.getValue().entrySet()){
-								if(e4.getKey().equals(size)){
-									System.out.println(prod);
-								}
-							}
+						if(prod.getSize().equals(size)){
+							System.out.println("prod");
+							
 						}
 							
 							
@@ -163,6 +160,11 @@ public class Store {
 
 		}
 
+	}
+	
+	
+	public void printByLabel(Product.Brand){
+		
 	}
 
 	public boolean checkAvailability(Product prod, String color, String size, int quantity) {

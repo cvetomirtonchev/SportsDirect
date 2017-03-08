@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 import store.IStock;
 
-public abstract class Product implements Comparable<Product> {
+public abstract class Product  {
 
 	public enum Brand {
 		NIKE, ADIDAS, PUMA, EVERLAST
@@ -70,17 +70,17 @@ public abstract class Product implements Comparable<Product> {
 	public void printProductInfo() {
 		//TODO
 	}
+	public Brand getBrand() {
+		return brand;
+	}
 
 	@Override
 	public String toString() {
-		return " " + this.brand + " " + this.name + ", price:" + price;
+		return " " + this.brand + " " + this.name + ", price:" + price +", color" +color +
+				", size " + size + ", quantity "+ quantity;
 	}
 
-	@Override
-	public int compareTo(Product p) {
 
-		return 1;
-	}
 	
 	
 
@@ -110,6 +110,12 @@ public abstract class Product implements Comparable<Product> {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+	public String getSize() {
+		return size;
+	}
+	public String getColor() {
+		return color;
 	}
 	
 	
