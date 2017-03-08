@@ -17,17 +17,12 @@ public class FootWear extends Product {
 	private ShoesType shoesType;
 	
 	
-	public FootWear(String name, Brand brand, Gender gender, double price , String productInfo,	ShoesType shoesType) {
-		super(name, brand, gender,price, productInfo );
+	public FootWear(String name, Brand brand, Gender gender, double price , String productInfo,	ShoesType shoesType, String color, String size, int quantity) {
+		super(name, brand, gender,price, productInfo, color, size, quantity );
 		this.shoesType = shoesType;
 		this.productType = ProductType.FOOTWEAR;
 		this.stock = shoesType;
-		String[] womanSize = {"35", "36", "37", "38", "39", "40", "41", "42"};
-		String[] manSize = {"39", "40", "41", "42", "43", "44", "45", "46"};
-		this.addSizeAndQuantity(manSize, womanSize);
 	}
-	
-	
 
 
 }

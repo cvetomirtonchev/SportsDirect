@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.TreeSet;
-
 import shops.Product;
 import shops.Product.Gender;
 import shops.Product.ProductType;

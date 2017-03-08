@@ -14,14 +14,10 @@ public class Accessories extends Product {
 	}
 	private AccessType accessType;
 	
-	public Accessories(String name, Brand brand, Gender gender, double price, String productInfo, AccessType acessType) {
-		super(name, brand, gender,price, productInfo );
+	public Accessories(String name, Brand brand, Gender gender, double price, String productInfo, AccessType acessType, String color, String size, int quantity) {
+		super(name, brand, gender,price, productInfo, color, size, quantity  );
 		this.accessType = accessType;
 		this.productType = ProductType.ACCESSORIES;
 		this.stock = acessType;
-		for (Entry<String, TreeMap<String, Integer>> e : this.colorSizeQuantity.entrySet()) {
-			e.getValue().put("Unique", new Random().nextInt(4)+1);
-		}
-		
 	}
 }
