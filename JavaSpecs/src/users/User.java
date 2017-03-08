@@ -33,7 +33,6 @@ public class User {
 	private static int idNumber = 0;
 	private String username;
 	private String password;
-	private String repeatPassword;
 	private String email;
 	private int id;
 	private Store store;
