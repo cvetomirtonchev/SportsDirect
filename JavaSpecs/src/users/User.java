@@ -37,9 +37,6 @@ public class User {
 	private int id;
 	private Store store;
 	private ArrayList<Product> shoppingBag;
-	private ArrayList<String> prodColor;
-	private ArrayList<String> prodSize;
-	private ArrayList<Integer> prodQuantity;
 	// for user menu
 	private ArrayList<Product> boughtProducts;
 
@@ -77,10 +74,6 @@ public class User {
 			idNumber++;
 			this.boughtProducts = new ArrayList<>();
 			this.shoppingBag = new ArrayList<>();
-			this.prodColor = new ArrayList<>();
-			this.prodQuantity = new ArrayList<>();
-			this.prodSize = new ArrayList<>();
-
 		}
 	}
 
@@ -97,12 +90,23 @@ public class User {
 		return isTaken;
 	}
 	
+	public void printBoughtProducts () {
+		if (!this.boughtProducts.isEmpty()) {
+			System.out.println("Bought products:");
+			for (Product p : this.boughtProducts) {
+				System.out.println(" " + p.getBrand() + " " + p.getName() + ", price:" + p.getPrice() +", color" +p.getColor() + ", size " + p.getSize());
+			}
+		}
+		else {
+			System.out.println("No bought products yet!");
+		}
+	}
+	
 	public void printUserBag () {
 		if (!this.shoppingBag.isEmpty()) {
 			System.out.println("Shopping Bag");
-			for (int i = 0; i < this.shoppingBag.size(); i++) {
-				System.out.println("Name: " + this.shoppingBag.get(i).getName() + ", color: " + this.prodColor.get(i) + ", size: " + 
-							this.prodSize.get(i) + ", quantity: " + this.prodQuantity.get(i) + ", price: " + this.shoppingBag.get(i).getPrice());
+			for (Product p : this.shoppingBag) {
+				System.out.println(" " + p.getBrand() + " " + p.getName() + ", price:" + p.getPrice() +", color" +p.getColor() + ", size " + p.getSize());
 			}
 		}
 		else {
@@ -110,36 +114,27 @@ public class User {
 		}
 	}
 
-	public void addToBag(Product product, String color, String size, int quantity) {
-		if (this.store.checkAvailability(product, color, size, quantity)) {
-			this.shoppingBag.add(product);
-			this.prodColor.add(color);
-			this.prodQuantity.add(quantity);
-			this.prodSize.add(size);
+	public void addToBag(Product product, int quantity) {
+		if (this.store.checkAvailability(product, quantity)) {
+			for (int i = 0; i < quantity; i++) {
+				this.shoppingBag.add(product);
+			}
 		}
 	}
 
 	public void returnProduct(Product product) {
 		if (this.shoppingBag.contains(product)) {
-			for (int i = 0; i < this.shoppingBag.size(); i++) {
-				this.prodColor.remove(this.shoppingBag.indexOf(product));
-				this.prodSize.remove(this.shoppingBag.indexOf(product));
-				this.prodQuantity.remove(this.shoppingBag.indexOf(product));
-				this.shoppingBag.remove(product);
-			}
+			this.shoppingBag.remove(product);
 		}
 	}
 
 	public void purchaceAll() {
 		if (!this.shoppingBag.isEmpty()) {
 			for (int i = 0; i < this.shoppingBag.size(); i++) {
-				this.store.removeFromCatalog(this.shoppingBag.get(i), this.prodColor.get(i), this.prodSize.get(i), this.prodQuantity.get(i));
+				this.store.removeFromCatalog(this.shoppingBag.get(i));
 				this.boughtProducts.add(this.shoppingBag.get(i));
 			}
 			this.shoppingBag.clear();
-			this.prodColor.clear();
-			this.prodQuantity.clear();
-			this.prodSize.clear();
 		}
 	}
 

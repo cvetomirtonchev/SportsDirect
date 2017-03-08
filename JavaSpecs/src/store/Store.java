@@ -72,7 +72,7 @@ public class Store {
 					System.out.println("                      -----Sort: " + e2.getKey());
 					for (Product prod : e2.getValue()) {
 						System.out.println("                                       :" + prod);
-						
+
 					}
 				}
 
@@ -80,7 +80,7 @@ public class Store {
 
 		}
 	}
-	
+
 	public void printFromPriceRange(int startPrice, int endPrice) {
 		if (startPrice > endPrice) {
 			int change = 0;
@@ -99,7 +99,7 @@ public class Store {
 					for (Product prod : e2.getValue()) {
 						if (prod.getPrice() >= startPrice && prod.getPrice() <= endPrice) {
 							System.out.println("                                       :" + prod);
-							
+
 						}
 
 					}
@@ -120,21 +120,20 @@ public class Store {
 				System.out.println("             Type: " + e1.getKey());
 				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
 					System.out.println("                      -----Sort: " + e2.getKey());
-					System.out.println("                                   Color: "+color);
+					System.out.println("                                   Color: " + color);
 					for (Product prod : e2.getValue()) {
 						if (prod.getColor().equals(color)) {
-							System.out.println( prod);
-							
-							}
+							System.out.println(prod);
+
 						}
 					}
-
 				}
-			}
 
+			}
 		}
 
-	
+	}
+
 	public void printSize(String size) {
 
 		System.out.println("==========WELCOME TO" + this.name + "===========");
@@ -145,74 +144,55 @@ public class Store {
 				System.out.println("             Type: " + e1.getKey());
 				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
 					System.out.println("                      -----Sort: " + e2.getKey());
-					System.out.println("                              With size : " +size);
+					System.out.println("                              With size : " + size);
 					for (Product prod : e2.getValue()) {
-						if(prod.getSize().equals(size)){
+						if (prod.getSize().equals(size)) {
 							System.out.println("prod");
-							
 						}
-							
-							
 					}
-
 				}
 			}
-
 		}
-
-	}
-	
-	
-	public void printByLabel(Product.Brand){
-		
 	}
 
-	public boolean checkAvailability(Product prod, String color, String size, int quantity) {
+	//
+	// public void printByLabel(Product.Brand){
+	//
+	// }
+
+	public boolean checkAvailability(Product prod, int quantity) {
 		
 		Gender gen = prod.getGender();
 		ProductType type = prod.getProductType();
 		IStock stock = prod.getStock();
 		HashSet<Product> pr_set = this.catalog.get(gen).get(type).get(stock);
 		if (pr_set.contains(prod)) {
-			if (prod.getColorSizeQuantity().containsKey(color)) {
-				if (prod.getColorSizeQuantity().get(color).containsKey(size)) {
-					if (prod.getColorSizeQuantity().get(color).get(size) >= quantity) {
-						return true;
-					} 
-					else {
-						System.out.println("Not enough quantity in the store!");
-						return false;
-					}
-				} 
-				else {
-					System.out.println("No such size for this product!");
-					return false;
-				}
+			if (prod.getQuantity() >= quantity) {
+				return true;
 			} 
 			else {
-				System.out.println("No such color for this product!");
+				System.out.println("Not enough quantity in the store!");
 				return false;
 			}
-		} 
+		}
 		else {
 			System.out.println("No such product in the catalog!");
 			return false;
 		}
-
 	}
-	
-	public void removeFromCatalog (Product prod, String color, String size, int quantity) {
+
+
+	public void removeFromCatalog(Product prod) {
 		HashSet<Product> temp = this.catalog.get(prod.getGender()).get(prod.getProductType()).get(prod.getStock());
 		for (Product p : temp) {
 			if (p == prod) {
-				int newQuantity = p.getColorSizeQuantity().get(color).get(size) - quantity;
-				p.getColorSizeQuantity().get(color).put(size, newQuantity);
+				p.setQuantity(p.getQuantity() - 1);
 				break;
 			}
 		}
 	}
 
-	public void giveProduct(User user, Product product, String color, String size, int quantity) {
+	public void giveProduct(User user, Product product, int quantity) {
 		Gender gen = product.getGender();
 		ProductType type = product.getProductType();
 		IStock stock = product.getStock();
@@ -221,7 +201,7 @@ public class Store {
 			if (this.catalog.get(gen).containsKey(type)) {
 				if (this.catalog.get(gen).get(type).containsKey(stock)) {
 					if (this.catalog.get(gen).get(type).get(stock).contains(product)) {
-						user.addToBag(product, color, size, quantity);
+						user.addToBag(product, quantity);
 						this.catalog.get(gen).get(type).get(stock).remove(product);
 					}
 				}
@@ -230,7 +210,7 @@ public class Store {
 		}
 
 	}
-	
+
 	public Map<Gender, HashMap<ProductType, HashMap<IStock, HashSet<Product>>>> getCatalog() {
 
 		return Collections.unmodifiableMap(catalog);

@@ -2,7 +2,9 @@ package store;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Random;
 import shops.Accessories;
 import shops.Clothing;
@@ -31,18 +33,11 @@ public class Demo {
 		User gosho = new User("Georgi", "Baraban1", "Baraban1", "georgi@abv.bg", store);
 		store.addUser(gosho);
 		
-//		
+		String [] colors = {"Green", "Red", "Blue", "Black", "White", "Yellow"};
+		int col = colors.length;
 		
-		
-//		try{
-//			User pesho = new User("Petyr", "1234", "1234", "georgi@abv.bg", store);
-//			store.addUser(pesho);
-//		}
-//		catch (NullPointerException e) {
-//			System.out.println("This e-mail is already in the database. Please try with a different e-mail. ");
-//		}
-		
-//		System.out.println(store.getUsers().size());
+		String [] size = {"35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46"};
+		int sizeL = size.length;
 		
 		ArrayList<Product> products = new ArrayList<>();
 
@@ -50,56 +45,51 @@ public class Demo {
 			Random r = new Random();
 			int type = r.nextInt(3);
 			if (type == 0) {
-				store.addToCatalog(new FootWear("Air 2.0", Brand.ADIDAS, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "leather", ShoesType.values()[r.nextInt(ShoesType.values().length)]));
+				store.addToCatalog(new FootWear("Air", Brand.values()[r.nextInt(Brand.values().length)], Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +45, "Leather",
+						ShoesType.values()[r.nextInt(ShoesType.values().length)], colors[r.nextInt(col)], size[r.nextInt(sizeL)], r.nextInt(5)+1));
 			
 			}
 			if (type == 1) {
-				store.addToCatalog(new Accessories("Milestone", Brand.PUMA, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "Cool", AccessType.values()[r.nextInt(AccessType.values().length)]));
-			
+				store.addToCatalog(new Accessories("Mile", Brand.values()[r.nextInt(Brand.values().length)],  Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +15, "Cool",
+						AccessType.values()[r.nextInt(AccessType.values().length)], colors[r.nextInt(col)], size[r.nextInt(sizeL)], r.nextInt(5)+1));
 			}
 			if (type == 2) {
-				store.addToCatalog(new Clothing("Bluzka", Brand.EVERLAST, Gender.values()[r.nextInt(Gender.values().length)], r.nextDouble()*100 +20, "Pretty", ClothType.values()[r.nextInt(ClothType.values().length)]));
+				store.addToCatalog(new Clothing("Stone", Brand.values()[r.nextInt(Brand.values().length)],  Gender.values()[r.nextInt(Gender.values().length)],  r.nextDouble()*100 +15, "Velur",
+						ClothType.values()[r.nextInt(ClothType.values().length)], colors[r.nextInt(col)], size[r.nextInt(sizeL)], r.nextInt(5)+1));
 			
 			}
 		}
-//		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, TreeSet<Product>>>> e : store.getCatalog().entrySet()) {
-//			for (Entry<ProductType, HashMap<IStock, TreeSet<Product>>> e1 : e.getValue().entrySet()) {
-//				for (Entry<IStock, TreeSet<Product>> e2 : e1.getValue().entrySet()) {
-//					for (Product prod : e2.getValue()) {
-//						products.add(prod);
-//					}
-//				}
-//			}
-//		}
-		Product pr = new FootWear("Adi", Brand.ADIDAS, Gender.LADIES, 30.5, "Leather", ShoesType.RUNNIG);
+		for (Entry<Gender, HashMap<ProductType, HashMap<IStock, HashSet<Product>>>> e : store.getCatalog().entrySet()) {
+			for (Entry<ProductType, HashMap<IStock, HashSet<Product>>> e1 : e.getValue().entrySet()) {
+				for (Entry<IStock, HashSet<Product>> e2 : e1.getValue().entrySet()) {
+					for (Product prod : e2.getValue()) {
+						products.add(prod);
+					}
+				}
+			}
+		}
 		
-		store.addToCatalog(pr);
-		
-		Product pro = new FootWear("Adidas", Brand.ADIDAS, Gender.MEN, 30.0, "asdasds", ShoesType.RUNNIG);
-		//store.printCatalog();
-
-		store.printCatalog();
-
-		System.out.println("============================");
-		//store.printFromPriceRange(10, 40);
-		//store.printColor("Black");
-		//store.printSize("XL");
-
-		gosho.addToBag(pro, "Black", "41", 1);
+		Product nov = new Clothing("OPITEN", Brand.EVERLAST, Gender.MEN, 1500, "RABOTI LI", ClothType.JACKETS, "BLACK", "XL", 10);
+		store.addToCatalog(nov);
+		gosho.addToBag(nov, 4);
+		System.out.println("Bag of Gosho before removal:");
 		gosho.printUserBag();
-
-		
-		gosho.addToBag(pr, "Black", "38", 1);
-		HashSet<Product> temp = store.getCatalog().get(Gender.MEN).get(ProductType.FOOTWEAR).get(ShoesType.RUNNIG);
-		gosho.addToBag((Product)temp.toArray()[new Random().nextInt(temp.size())], "White", "40", 1);
+		System.out.println("==========");
+		gosho.returnProduct(nov);
+		System.out.println("Bag of Gosho after removal:");
 		gosho.printUserBag();
-		gosho.returnProduct(pr);
-		gosho.printUserBag();
+		System.out.println();
 		gosho.purchaceAll();
-		gosho.printUserBag();
+		System.out.println("========= CATALOG AFTER PURCHASE =========");
 		store.printCatalog();
+		System.out.println("==========");
+		System.out.println("Bag of Gosho after purchase:");
+		gosho.printUserBag();
+		System.out.println("==========");
+		System.out.println("Bought list of Gosho after purchase:");
+		gosho.printBoughtProducts();
 
-
+		
 	}
 
 }

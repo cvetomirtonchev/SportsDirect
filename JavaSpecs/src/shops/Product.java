@@ -66,12 +66,17 @@ public abstract class Product  {
 	public String getName() {
 		return name;
 	}
-
-	public void printProductInfo() {
-		//TODO
-	}
+	
 	public Brand getBrand() {
 		return brand;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	@Override
