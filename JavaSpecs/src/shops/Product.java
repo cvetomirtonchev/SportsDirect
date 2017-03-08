@@ -81,7 +81,7 @@ public abstract class Product  {
 
 	@Override
 	public String toString() {
-		return " " + this.brand + " " + this.name + ", price:" + price +", color" +color +
+		return " " + this.brand + " " + this.name + ", price:" + price +", color " +color +
 				", size " + size + ", quantity "+ quantity;
 	}
 
